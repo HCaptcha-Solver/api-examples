@@ -17,7 +17,7 @@ El código se publica bajo la [licencia MIT](LICENSE). Utiliza el servicio en si
 
 ## 1. Configuración
 
-Crea una cuenta en [hcaptchasolver.org](https://hcaptchasolver.org/), verifica tu correo electrónico, añade saldo y crea una clave de API. Activa los permisos `images` y/o `browser`; añade `balance` para consultar el saldo y `feedback` para comunicar un resultado.
+Crea una cuenta en [hcaptchasolver.org](https://hcaptchasolver.org/), verifica tu correo electrónico, añade saldo y crea una clave de API. Introduce solo un nombre para tu clave. La misma clave funciona en la extensión Chrome, el modo por imágenes y Chrome gestionado, incluidas las consultas de saldo y el feedback. El administrador fija el límite de nuevas resoluciones por minuto de la cuenta; todas las claves y ambos modos comparten este límite. Crear otra clave no lo aumenta. Las respuestas HTTP 429 incluyen `Retry-After`; también se aplican límites de simultaneidad e infraestructura.
 
 ```bash
 git clone https://github.com/HCaptcha-Solver/api-examples.git
@@ -147,7 +147,7 @@ HTTP 200 no es suficiente: comprueba los campos `status` y `error` de la operaci
 
 | Respuesta | Qué hacer |
 | --- | --- |
-| `401` / `403` | Comprueba la clave de API y los permisos necesarios. |
+| `401` / `403` | Comprueba que la clave de API esté activa. Las rutas de cuenta y administración requieren una sesión del panel. |
 | `402` | Añade saldo o espera a que se libere el saldo reservado por otra operación. |
 | `409` | Se reutilizó un ID de solicitud con contenido diferente. Restaura el contenido original o utiliza un ID nuevo para una tarea realmente nueva. |
 | `413` / `422` | Comprueba el tamaño del JSON, el Base64 sin prefijo, los nombres de los campos y los límites de los rectángulos. `reference` no es un alias de `references`. |
@@ -163,12 +163,12 @@ Los clientes de [Python](python/client.py) y [JavaScript](javascript/client.mjs)
 
 | Endpoint | Función |
 | --- | --- |
-| `GET /v2/balance` | Consultar el saldo (permiso `balance`) |
-| `POST /v2/solutions` | Analizar una solicitud de imágenes (`images`) |
-| `POST /v2/tasks` | Iniciar Chrome gestionado (`browser`) |
-| `GET /v2/tasks/{id}` | Recuperar una operación (permiso `images` o `browser` correspondiente) |
+| `GET /v2/balance` | Consultar el saldo |
+| `POST /v2/solutions` | Analizar una solicitud de imágenes |
+| `POST /v2/tasks` | Iniciar Chrome gestionado |
+| `GET /v2/tasks/{id}` | Recuperar una operación de tu cuenta |
 | `DELETE /v2/tasks/{id}` | Cancelar una operación que aún no ha terminado |
-| `POST /v2/tasks/{id}/feedback` | Comunicar `{ "success": true }` o `{ "success": false }` (`feedback`) |
+| `POST /v2/tasks/{id}/feedback` | Comunicar `{ "success": true }` o `{ "success": false }` |
 
 ## Ejecutar pruebas sin consumir saldo
 

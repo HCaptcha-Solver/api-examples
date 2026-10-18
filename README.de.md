@@ -17,7 +17,7 @@ Der Code steht unter der [MIT-Lizenz](LICENSE). Verwenden Sie den Dienst für We
 
 ## 1. Einrichtung
 
-Erstellen Sie ein Konto auf [hcaptchasolver.org](https://hcaptchasolver.org/), bestätigen Sie Ihre E-Mail-Adresse, laden Sie Guthaben auf und erstellen Sie einen API-Schlüssel. Aktivieren Sie `images` und/oder `browser`; ergänzen Sie `balance` für Guthabenabfragen und `feedback` für Ergebnismeldungen.
+Erstellen Sie ein Konto auf [hcaptchasolver.org](https://hcaptchasolver.org/), bestätigen Sie Ihre E-Mail-Adresse, laden Sie Guthaben auf und erstellen Sie einen API-Schlüssel. Geben Sie nur einen Namen für Ihren Schlüssel ein. Derselbe Schlüssel funktioniert in der Chrome-Erweiterung, im Bildmodus und mit verwaltetem Chrome, einschliesslich Guthaben und Feedback. Die Administration legt das Kontolimit für neue Lösungen pro Minute fest; alle Schlüssel und beide Modi teilen sich dieses Limit. Ein weiterer Schlüssel erhöht es nicht. HTTP-429-Antworten enthalten `Retry-After`; Parallelitäts- und Infrastrukturlimits gelten zusätzlich.
 
 ```bash
 git clone https://github.com/HCaptcha-Solver/api-examples.git
@@ -147,7 +147,7 @@ HTTP 200 allein reicht nicht: Prüfen Sie `status` und `error` des Vorgangs. And
 
 | Antwort | Vorgehen |
 | --- | --- |
-| `401` / `403` | API-Schlüssel und erforderliche Berechtigungsumfänge prüfen. |
+| `401` / `403` | Prüfen, ob der API-Schlüssel aktiv ist. Konto- und Verwaltungsendpunkte erfordern eine Dashboard-Sitzung. |
 | `402` | Guthaben aufladen oder auf die Freigabe einer Reservierung eines anderen Vorgangs warten. |
 | `409` | Eine Anfrage-ID wurde mit anderem Inhalt wiederverwendet. Den ursprünglichen Inhalt wiederherstellen oder für eine tatsächlich neue Aufgabe eine neue ID verwenden. |
 | `413` / `422` | JSON-Grösse, reines Base64, Feldnamen und Rechteckgrenzen prüfen. `reference` ist kein Alias für `references`. |
@@ -163,12 +163,12 @@ Die Clients für [Python](python/client.py) und [JavaScript](javascript/client.m
 
 | Endpunkt | Zweck |
 | --- | --- |
-| `GET /v2/balance` | Guthabenübersicht (Berechtigung `balance`) |
-| `POST /v2/solutions` | Eine Bildanfrage analysieren (`images`) |
-| `POST /v2/tasks` | Verwalteten Chrome starten (`browser`) |
-| `GET /v2/tasks/{id}` | Einen Vorgang abrufen (passende Berechtigung `images` oder `browser`) |
+| `GET /v2/balance` | Guthabenübersicht |
+| `POST /v2/solutions` | Eine Bildanfrage analysieren |
+| `POST /v2/tasks` | Verwalteten Chrome starten |
+| `GET /v2/tasks/{id}` | Einen Vorgang Ihres Kontos abrufen |
 | `DELETE /v2/tasks/{id}` | Einen noch nicht abgeschlossenen Vorgang abbrechen |
-| `POST /v2/tasks/{id}/feedback` | `{ "success": true }` oder `{ "success": false }` melden (`feedback`) |
+| `POST /v2/tasks/{id}/feedback` | `{ "success": true }` oder `{ "success": false }` melden |
 
 ## Tests ohne Guthabenverbrauch ausführen
 

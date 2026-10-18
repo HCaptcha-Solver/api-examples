@@ -15,7 +15,7 @@ Exemplos em **Python, Node.js e cURL** para integrar a API. Este repositório co
 
 ## Preparação
 
-Crie a conta em [hcaptchasolver.org](https://hcaptchasolver.org/), confirme o e-mail, adicione saldo e gere a chave. Habilite `images` e/ou `browser`; adicione `balance` para consultar o saldo e `feedback` para informar o resultado.
+Crie a conta em [hcaptchasolver.org](https://hcaptchasolver.org/), confirme o e-mail, adicione saldo e gere a chave. Informe apenas o nome da chave. A mesma chave funciona na extensão Chrome, no modo por imagens e no Chrome gerenciado, incluindo saldo e feedback. O administrador define o limite de novas resoluções por minuto da conta; todas as chaves e os dois modos compartilham esse limite. Criar outra chave não aumenta a cota. Respostas HTTP 429 incluem `Retry-After`; limites de simultaneidade e infraestrutura também se aplicam.
 
 ```bash
 git clone https://github.com/HCaptcha-Solver/api-examples.git

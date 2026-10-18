@@ -17,7 +17,7 @@ The code is released under [MIT](LICENSE). Use the service on sites and workflow
 
 ## 1. Set up
 
-Create an account at [hcaptchasolver.org](https://hcaptchasolver.org/), verify your email, add credit and create an API key. Enable `images` and/or `browser`; add `balance` to query credit and `feedback` to report an outcome.
+Create an account at [hcaptchasolver.org](https://hcaptchasolver.org/), verify your email, add credit and create an API key. Enter only a name for your key. The same key works in the Chrome extension, image mode and managed Chrome, including balance and feedback. The administrator sets the account’s new-solution limit per minute; all keys and both modes share that limit. Creating another key does not increase it. HTTP 429 responses include `Retry-After`; concurrency and infrastructure limits also apply.
 
 ```bash
 git clone https://github.com/HCaptcha-Solver/api-examples.git
@@ -143,7 +143,7 @@ HTTP 200 is not enough: inspect the operation's `status` and `error`. Unlike the
 
 | Response | What to do |
 | --- | --- |
-| `401` / `403` | Check the API key and the required scopes. |
+| `401` / `403` | Check that the API key is active. Account and administration endpoints require a dashboard session. |
 | `402` | Add credit or wait for another operation's reservation to be released. |
 | `409` | A request ID was reused with different content. Restore the original content, or use a new ID for a genuinely new task. |
 | `413` / `422` | Check JSON size, raw Base64, field names and rectangle bounds. `reference` is not an alias for `references`. |
@@ -159,12 +159,12 @@ Both [Python](python/client.py) and [JavaScript](javascript/client.mjs) expose b
 
 | Endpoint | Purpose |
 | --- | --- |
-| `GET /v2/balance` | Credit totals (`balance` scope) |
-| `POST /v2/solutions` | Analyze one image request (`images`) |
-| `POST /v2/tasks` | Start managed Chrome (`browser`) |
-| `GET /v2/tasks/{id}` | Retrieve an operation (matching `images` or `browser` scope) |
+| `GET /v2/balance` | Credit totals |
+| `POST /v2/solutions` | Analyze one image request |
+| `POST /v2/tasks` | Start managed Chrome |
+| `GET /v2/tasks/{id}` | Retrieve an operation belonging to your account |
 | `DELETE /v2/tasks/{id}` | Cancel an unfinished operation |
-| `POST /v2/tasks/{id}/feedback` | Report `{ "success": true }` or `{ "success": false }` (`feedback`) |
+| `POST /v2/tasks/{id}/feedback` | Report `{ "success": true }` or `{ "success": false }` |
 
 ## Run tests without spending credit
 
