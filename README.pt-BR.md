@@ -1,6 +1,10 @@
 # Exemplos da API HCaptcha Solver
 
-[English](README.md) · [Documentação interativa em português](https://hcaptchasolver.org/?lang=pt-BR#/docs)
+[![Exemplos](https://github.com/HCaptcha-Solver/api-examples/actions/workflows/test.yml/badge.svg)](https://github.com/HCaptcha-Solver/api-examples/actions/workflows/test.yml)
+
+[🇺🇸 English](README.md) · [🇧🇷 Português](README.pt-BR.md) · [🇩🇪 Deutsch](README.de.md) · [🇪🇸 Español](README.es.md)
+
+[Site](https://hcaptchasolver.org/) · [Documentação interativa em português](https://hcaptchasolver.org/?lang=pt-BR#/docs) · [OpenAPI](https://api.hcaptchasolver.org/v2/openapi.json)
 
 Exemplos em **Python, Node.js e cURL** para integrar a API. Este repositório contém clientes HTTP, um preparador de imagens e imagens didáticas. A resolução acontece no serviço hospedado; este código não executa um resolvedor local.
 
