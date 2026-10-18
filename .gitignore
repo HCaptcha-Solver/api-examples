@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+.venv/
+__pycache__/
+*.py[cod]
+node_modules/
+request.json
+response.json
+output/
+captures/
+.DS_Store
